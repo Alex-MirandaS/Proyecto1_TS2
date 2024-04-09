@@ -16,23 +16,25 @@
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form>
+    <form action="../Controlers/controlVerifyUser.php" method="POST">
         <h3>Login</h3>
 
         <label for="username">Usuario</label>
-        <input type="text" placeholder="Escribe tu nombre de Usuario" id="username">
+        <input type="text" placeholder="Escribe tu nombre de Usuario" id="username" name="username">
 
         <label for="password">Contraseña</label>
-        <input type="password" placeholder="Escribe tu Contraseña" id="password">
+        <input type="password" placeholder="Escribe tu Contraseña" id="password" name="password">
 
-        <button id="button">Ingresar</button>
+        <button id="login" value="register" type="submit">Ingresar</button>
 
         <div class="social">
-            <label id="texto">¿No tienes Cuenta?</label>
-            <button id="register"> Registrate </button>
+            <form action="registro.php" method="get">
+                <label id="texto">¿No tienes Cuenta?</label>
+                <button id="register" > Registrate </button>
+            </form>
         </div>
     </form>
-    <script src="../JS/loginScript.js"></script>
+
 </body>
 
 </html>

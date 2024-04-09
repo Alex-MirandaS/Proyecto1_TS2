@@ -111,3 +111,10 @@ CREATE TABLE Message(
     FOREIGN KEY (idChat) REFERENCES Chat(idChat),
     FOREIGN KEY (idUser) REFERENCES User(idUser)
 );
+
+INSERT INTO UserType (rol) VALUES ("administrador");/*1*/
+INSERT INTO UserType (rol) VALUES ("normal");/*2*/
+
+INSERT INTO Category (name) VALUES ("Producto");/*1*/
+INSERT INTO Category (name) VALUES ("Servicio");/*2*/
+INSERT INTO Category (name) VALUES ("Voluntariado");/*3*/

@@ -327,6 +327,7 @@ select,
 input.number,
 input.text.w3lpass {
     margin: 2em 0;
+    text-align: center;
 }
 
 .text:focus,

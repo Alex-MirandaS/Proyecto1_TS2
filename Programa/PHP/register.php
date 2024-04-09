@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-    <!-- Design by foolishdeveloper.com -->
     <title>Registrate</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -16,22 +15,26 @@
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form>
+    <form action="../Controlers/controlAddUser.php" method="POST">
         <h3>Registrate</h3>
+        <label for="username">Nombre</label>
+        <input type="text" placeholder="Ingresa tu Nombre" id="name" name="name">
+
+        <label for="username">Apellido</label>
+        <input type="text" placeholder="Ingresa tu Apellido" id="lastname" name="lastname">
 
         <label for="username">Usuario</label>
-        <input type="text" placeholder="Ingresa un Nombre de Usuario" id="username">
+        <input type="text" placeholder="Ingresa un Nombre de Usuario" id="username" name="username">
 
         <label for="password">Contraseña</label>
-        <input type="password" placeholder="Ingresa una Contraseña" id="password">
+        <input type="password" placeholder="Ingresa una Contraseña" id="password" name="password">
 
         <label for="password">Confirmar Contraseña</label>
-        <input type="password" placeholder="Confirma la Contraseña" id="confpassword">
+        <input type="password" placeholder="Confirma la Contraseña" name="confpassword" name="confpassword">
 
-        <button id="button">Registrarse</button>
+        <button id="button" value="register" type="submit">Registrarse</button>
 
     </form>
-    <script src="../JS/registerScript.js"></script>
 </body>
 
 </html>
