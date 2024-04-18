@@ -6,8 +6,8 @@ $conection = $getmysql->conection();
 $idUser = $_GET['data'];
 mysqli_begin_transaction($conection);
 $user = selectUser_idUser($conection, $idUser);
-$products = selectProductService_noIdOwnerStatus($conection,$idUser,1);
 $user = $user[0];
+$categories = selectCategories($conection);
 mysqli_commit($conection);
 ?>
 
@@ -19,13 +19,16 @@ mysqli_commit($conection);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>G-SWAP</title>
+    <title>Publicar</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="../CSS/homeStyles.css" rel="stylesheet" />
+    <link href="../../CSS/addProduct.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="../../CSS/productStyles.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
 </head>
 
 <body>
@@ -52,64 +55,22 @@ mysqli_commit($conection);
             </div>
         </div>
     </nav>
-    <!-- Header-->
-    <header class="bg-dark py-5">
-        <div class="container px-4 px-lg-5 my-5">
-            <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">¡Bienvenido
-                    <?php echo $user->getFirstName() . " " . $user->getLastName() . "!" ?>
-                </h1>
+    <div class="py-5">
+        <h1 class="display-4 fw-bolder">Selecciona el tipo de publicación</h1>
+        <div class="main-agileinfo">
+            <div class="agileits-top">
+                <form action=<?php echo "addProduct.php?data=".$idUser?> method="POST">
+                <select id="categoryProduct" name="categoryProduct" class="contenedor"  required="">
+                   <?php
+                   foreach ($categories as $category) {
+                    echo "<option value=".$category->getIdCategory().">".$category->getName()."</option>";
+                }
+                   ?>
+                    <input id="button" class="btn btn-outline-dark " type="submit" value="Aceptar">
+                </form>
             </div>
         </div>
-    </header>
-    <section class="py-5">
-        <div class="container px-4 px-lg-5 mt-5">
-            <div id="containerProducts"
-                class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                <!-- INICIA MODELO -->
-
-                <?php 
-               foreach ($products as $post) {
-
-                mysqli_begin_transaction($conection);
-                $category = selectCategory_idCategory($conection, $post->getIdCategory());
-                $userTemp = selectUser_idUser($conection, $post->getIdOwner());
-                $userTemp = $userTemp[0]; 
-                $category = $category[0]; 
-                mysqli_commit($conection);
-            
-            
-            echo "<div class=\"col mb-5\">
-            <div class=\"card h-100\">
-               <!-- Sale badge-->
-               <div class=\"badge bg-dark text-white position-absolute\" style=\"top: 0.5rem; right: 0.5rem\">".$category->getName()."</div>
-               <!-- Product image-->
-               <img class=\"card-img-top\" src=\"https://dummyimage.com/450x300/dee2e6/6c757d.jpg\" alt=\"...\" />
-               <!-- Product details-->
-               <div class=\"card-body p-4\">
-                   <div class=\"text-center\">
-                       <!-- Product name-->
-                       <h5 id=\"nameProduct\" class=\"fw-bolder\">".$post->getName()."</h5>
-                       <!-- Product price-->
-                       <span id=\"priceProduct\">C. ".$post->getPrice()."</span>
-                       <br>
-                       <span id=\"priceProduct\"> ".$userTemp->getUsername()."</span>
-                   </div>
-               </div>
-               <!-- Product actions-->
-               <div class=\"card-footer p-4 pt-0 border-top-0 bg-transparent\">
-                   <div class=\"text-center\"><a id=\"productPageButton\" class=\"btn btn-outline-dark mt-auto\" href=detailsProductUser.php?data1=".$idUser."&data2=".$post->getIdProductServiceVol().">Detalles</a></div>
-               </div>
-            </div>
-            </div>";
-            }
-            
-?>
-
-                <!-- TERMINA MODELO -->
-            </div>
-        </div>
-    </section>
+    </div>
     <!-- Footer-->
     <footer class="py-5 bg-dark">
         <div class="container">

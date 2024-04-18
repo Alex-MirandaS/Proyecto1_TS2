@@ -2,15 +2,16 @@
 
 class ProductServiceVol
 {
-    private $idProductServiceVol, $idOwner, $name, $price, $description, $idCategory;
+    private $idProductServiceVol, $idOwner, $name, $price, $description, $idCategory, $stock;
 
-    public function __construct($idProductServiceVol, $idOwner, $name, $price, $description, $idCategory){
+    public function __construct($idProductServiceVol, $idOwner, $name, $price, $description, $idCategory, $stock){
         $this->idProductServiceVol = $idProductServiceVol;
         $this->idOwner = $idOwner;
         $this->name = $name;
         $this->price = $price;
         $this->description = $description;
         $this->idCategory = $idCategory;
+        $this->stock = $stock;
     }
 
     public function getIdProductServiceVol()
@@ -43,5 +44,9 @@ class ProductServiceVol
         return $this->idCategory;
     }
 
+    public function getStock()
+    {
+        return $this->stock;
+    }
 }
 ?>

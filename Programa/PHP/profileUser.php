@@ -4,12 +4,12 @@ include ("../DB/select.php");
 $getmysql = new mysqlconection();
 $conection = $getmysql->conection();
 $idUser = $_GET['data'];
-$idCategory = filter_input(INPUT_POST, "categoryProduct", FILTER_SANITIZE_NUMBER_INT);
 mysqli_begin_transaction($conection);
 $user = selectUser_idUser($conection, $idUser);
-$category = selectCategory_idCategory($conection,$idCategory);
+$profile = selectProfile_idUser($conection, $idUser);
+$payMethods = selectPayMethod_idUser($conection, $idUser);
 $user = $user[0];
-$category = $category[0];
+$profile = $profile[0];
 mysqli_commit($conection);
 ?>
 
@@ -21,7 +21,7 @@ mysqli_commit($conection);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Publicar</title>
+    <title>Perfil</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap icons-->
@@ -30,6 +30,7 @@ mysqli_commit($conection);
     <link href="../CSS/homeStyles.css" rel="stylesheet" />
     <link href="../../CSS/addProduct.css" rel="stylesheet" type="text/css" media="all" />
     <link href="../../CSS/productStyles.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="../../CSS/profile.css" rel="stylesheet" type="text/css" media="all" />
     <link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
 </head>
 
@@ -57,30 +58,50 @@ mysqli_commit($conection);
             </div>
         </div>
     </nav>
-    <div class="py-5">
-        <h1 class="display-4 fw-bolder"><?php echo "Agregar ".$category->getName();?></h1>
-        <div class="main-agileinfo">
-            <div class="agileits-top">
-                <form action=<?php echo "../Controlers/controlAddProduct.php?data1=".$idUser."&data2=".$idCategory?> method="POST">
-                    <input id="titleProduct" name="titleProduct" placeholder="Titulo" type="text" class="btn btn-outline-dark mt-auto" required="">
-                    <input id="priceProduct" name="priceProduct" placeholder=<?php switch ($idCategory) {case '1':echo "Precio";break;case '2':echo "Costo";break;case '3':echo "Costo";break;}?> type="number" step="0.01" min="1" class="btn btn-outline-dark mt-auto" required="">
-                    <?php
-                    if($idCategory!=2){
-                        $text = "";
-                        if($idCategory == 1){
-                            $text = "Existencias";
-                        }else{
-                            $text = "Cupo";
-                        }
-                        echo "<input id=\"stock\" name=\"stock\" placeholder=".$text." type = \"number\" min=\"1\" class=\"btn btn-outline-dark mt-auto\" required=\"\">";
-                    }
-                    ?>
-                    <input id="desctProduct" name="desctProduct" type="text" placeholder="Descripción" class="btn btn-outline-dark mt-auto" required="">
-                    <input id="button" class="btn btn-outline-dark " type="submit" value="Ingresar">
-                </form>
+    <div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span> </span></div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Perfil</h4>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-md-6"><label class="labels">Username</label><input type="text" class="form-control" placeholder=<?php echo $user->getUsername()?>></div>
+                </div>
+                <div class="row mt-3"><!-- agrega una nueva fila-->
+                <div class="col-md-6"><label class="labels">Nombre</label><input type="text" class="form-control" placeholder=<?php echo $user->getFirstName()?> readonly></div>
+                <div class="col-md-6"><label class="labels">Apellido</label><input type="text" class="form-control" placeholder=<?php echo $user->getLastName()?> readonly></div>
+                <div class="col-md-6"><label class="labels">Chelines</label><input type="text" class="form-control" placeholder=<?php echo $profile->getChelines()?> readonly></div>
+                <div class="col-md-6"><label class="labels"></label><br><span class="col-md-6"><i class="fa fa-plus"></i>&nbsp;<a style="text-decoration: none; color: black; display: inline-block;" href=<?php echo "addChelinesUser.php?data=".$idUser;?>>Recargar Chelines</a></span></div>
+                </div>
+
             </div>
         </div>
+        <div class="col-md-4">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center experience"><span>Metodos de Pago</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;<a style="text-decoration: none; color: black; display: inline-block;" href=<?php echo "payMethodUser.php?data=".$idUser;?>>Agregar+</a></span></div><br>
+                <?php
+                $numTarjeta = 1;
+                foreach ($payMethods as $pm) {
+
+                    echo"<div class=\"col-md-12\">
+                        <label class=\"labels\">Tarjeta ".$numTarjeta."</label>
+                        <input type=\"text\" class=\"form-control\" placeholder=************".substr($pm->getCardNumber(),-4)." readonly>
+                        </div> 
+                        <br>";
+                        $numTarjeta++;
+                }
+                ?>
+                </div>
+        </div>
     </div>
+</div>
+</div>
+</div>
     <!-- Footer-->
     <footer class="py-5 bg-dark">
         <div class="container">

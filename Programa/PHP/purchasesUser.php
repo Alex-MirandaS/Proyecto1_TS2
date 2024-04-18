@@ -98,7 +98,7 @@ mysqli_commit($conection);
                </div>
                <!-- Product actions-->
                <div class=\"card-footer p-4 pt-0 border-top-0 bg-transparent\">
-                   <div class=\"text-center\"><a id=\"productPageButton\" class=\"btn btn-outline-dark mt-auto\" href=detailsProductUser.php?data1=".$idUser."&data2=".$post->getIdProductServiceVol().">Detalles</a></div>
+                   <div class=\"text-center\"><a id=\"productPageButton\" class=\"btn btn-outline-dark mt-auto\" href=\"#\">Detalles</a></div>
                </div>
             </div>
             </div>";

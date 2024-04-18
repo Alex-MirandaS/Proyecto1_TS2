@@ -11,13 +11,16 @@ function insertQ($type)
             $query = "INSERT INTO Profile (online, chelines, idUser) VALUES (?,?,?)";
             break;
         case 'productservice':
-            $query = "INSERT INTO ProductService (name, price, description, idCategory, idOwner) VALUES (?,?,?,?,?)";
+            $query = "INSERT INTO ProductService (name, price, description, idCategory, idOwner, stock) VALUES (?,?,?,?,?,?)";
             break;
         case 'catalogues':
             $query = "INSERT INTO Catalogues (available, idProductService) VALUES (?,?)";
             break;
         case 'category':
             $query = "INSERT INTO Category (name) VALUES (?)";
+            break;
+        case 'paymethod':
+            $query = "INSERT INTO PayMethod (cardNumber, cvv, expiredDate, total, idUser) VALUES (?,?,?,?,?)";
             break;
 
     }
@@ -40,6 +43,23 @@ function selectQ($table, $type)
         case 'category':
             $query = categorySelect($type);
             break;
+        case 'paymethod':
+            $query = paymethodSelect($type);
+            break;
+    }
+    return $query;
+}
+function paymethodSelect($type)
+{
+    $query = "";
+    switch ($type) {
+        case 'all':
+            $query = "SELECT * FROM PayMethod";
+            break;
+        case 'idUser':
+            $query = "SELECT * FROM PayMethod WHERE idUser = ?";
+            break;
+
     }
     return $query;
 }
@@ -81,13 +101,24 @@ function productServiceSelect($type)
             AND c.available = ?;
             ";
             break;
+        case '!idOwner/available':
+            $query = "SELECT ps.*
+                FROM ProductService ps
+                INNER JOIN Catalogues c ON ps.idProductService = c.idProductService
+                WHERE ps.idOwner != ?
+                AND c.available = ?;
+                ";
+            break;
         case 'available':
             $query = "SELECT ps.*
             FROM ProductService ps
             INNER JOIN Catalogues c ON ps.idProductService = c.idProductService
             WHERE c.available = ?;
                 ";
-                break;
+            break;
+        case 'idProductService':
+            $query = "SELECT * FROM ProductService WHERE idProductService = ?";
+            break;
     }
     return $query;
 }
@@ -136,12 +167,34 @@ function updateQ($table, $type)
                 case 'online/idUser':
                     $query = "UPDATE Profile SET online = ? WHERE idUser = ?";
                     break;
+                case 'chelines/idUser':
+                    $query = "UPDATE Profile SET chelines = chelines + ? WHERE idUser = ?";
+                    break;
+                case 'chelines/idUser/restar':
+                    $query = "UPDATE Profile SET chelines = chelines - ? WHERE idUser = ?";
+                    break;
             }
             break;
         case 'catalogues':
             switch ($type) {
                 case 'available/idProductService':
                     $query = "UPDATE Catalogues SET available = ? WHERE idProductService = ?";
+                    break;
+            }
+            break;
+        case 'paymethod':
+            switch ($type) {
+                case 'total/idPayMethod':
+                    $query = "UPDATE PayMethod SET total = total + ? WHERE idPayMethod = ?;
+                    ";
+                    break;
+            }
+            break;
+        case 'productservice':
+            switch ($type) {
+                case 'stock/idProductService':
+                    $query = "UPDATE ProductService SET stock = stock - ? WHERE idProductService = ?;
+                        ";
                     break;
             }
             break;

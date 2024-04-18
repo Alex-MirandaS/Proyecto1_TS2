@@ -70,7 +70,9 @@ foreach ($verifyUsers as $userV) {
     <div class=\"text-center\">
     <h5 id=\"username\" class=\"fw-bolder\"> Username: ".$userV->getUsername()."</h5>
     <span id=\"firstName\"> Nombre: ".$userV->getFirstName()."</span>
+    <br>
     <span id=\"apellido\"> Apellido: ".$userV->getLastName()."</span>
+    <br>
     </div>
     </div>
     <div class=\"card-footer p-4 pt-0 border-top-0 bg-transparent\">

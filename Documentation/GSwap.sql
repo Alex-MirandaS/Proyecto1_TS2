@@ -30,7 +30,7 @@ CREATE TABLE Profile(
 
 CREATE TABLE PayMethod(
     idPayMethod INT auto_increment,
-    cardNumber INT NOT NULL,
+    cardNumber BIGINT NOT NULL,
     cvv INT NOT NULL,
     expiredDate DATE NOT NULL,
     total FLOAT NOT NULL,
@@ -58,6 +58,7 @@ CREATE TABLE ProductService(
     idProductService INT auto_increment,
     name VARCHAR (50) NOT NULL,
     price FLOAT NOT NULL,
+    stock INT,
     description VARCHAR (150) NOT NULL,
     idCategory INT NOT NULL,
     idOwner INT NOT NULL,
@@ -110,6 +111,15 @@ CREATE TABLE Message(
     PRIMARY KEY (idMessage),
     FOREIGN KEY (idChat) REFERENCES Chat(idChat),
     FOREIGN KEY (idUser) REFERENCES User(idUser)
+);
+
+CREATE TABLE Purchase(
+    idPurchase INT auto_increment,
+    idProductService INT NOT NULL,
+    idBuyer INT NOT NULL,
+    PRIMARY KEY (idPurchase),
+    FOREIGN KEY (idProductService) REFERENCES ProductService(idProductService),
+    FOREIGN KEY (idBuyer) REFERENCES User(idUser)
 );
 
 INSERT INTO UserType (rol) VALUES ("administrador");/*1*/

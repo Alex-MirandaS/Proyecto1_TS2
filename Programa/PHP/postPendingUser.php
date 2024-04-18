@@ -6,7 +6,7 @@ $conection = $getmysql->conection();
 $idUser = $_GET['data'];
 mysqli_begin_transaction($conection);
 $user = selectUser_idUser($conection, $idUser);
-$products = selectProductService_noIdOwnerStatus($conection,$idUser,1);
+$products = selectProductService_idOwnerStatus($conection, $idUser, 0);
 $user = $user[0];
 mysqli_commit($conection);
 ?>
@@ -56,8 +56,7 @@ mysqli_commit($conection);
     <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">¡Bienvenido
-                    <?php echo $user->getFirstName() . " " . $user->getLastName() . "!" ?>
+            <h1 class="display-4 fw-bolder">Publicaciones Pendientes de Aprobación
                 </h1>
             </div>
         </div>
@@ -98,7 +97,7 @@ mysqli_commit($conection);
                </div>
                <!-- Product actions-->
                <div class=\"card-footer p-4 pt-0 border-top-0 bg-transparent\">
-                   <div class=\"text-center\"><a id=\"productPageButton\" class=\"btn btn-outline-dark mt-auto\" href=detailsProductUser.php?data1=".$idUser."&data2=".$post->getIdProductServiceVol().">Detalles</a></div>
+                   <div class=\"text-center\"><a id=\"productPageButton\" class=\"btn btn-outline-dark mt-auto\" href=\"#\">Detalles</a></div>
                </div>
             </div>
             </div>";

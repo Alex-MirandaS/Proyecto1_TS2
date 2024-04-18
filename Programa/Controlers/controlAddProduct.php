@@ -10,17 +10,21 @@ $getconection = $getmysql->conection();
 $name = filter_input(INPUT_POST, "titleProduct", FILTER_SANITIZE_STRING);
 $price = filter_input(INPUT_POST, "priceProduct", FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 $description = filter_input(INPUT_POST, "desctProduct", FILTER_SANITIZE_STRING);
-$idCategory = filter_input(INPUT_POST, "categoryProduct", FILTER_SANITIZE_NUMBER_INT);
-$idOwner = $_GET['data'];
+$stock = NULL;
+if($idCategory!=2){
+    $stock = filter_input(INPUT_POST, "stock", FILTER_SANITIZE_NUMBER_INT);
+}
+$idOwner = $_GET['data1'];
+$idCategory = $_GET['data2'];
 //VALIDACION DE DATOS
 
 if ($name == '' || $price == '' || $description == '' || $idCategory == '' || $idOwner == '') {
-    echo "<script> alert('Hey! Hay datos faltantes, por favor, llena todos los campos'); location.href='../PHP/register.php';</script>";
+    echo "<script> alert('Algun valor no tiene contenido'); location.href='../PHP/register.php';</script>";
 } else {
     
     try{
        mysqli_begin_transaction($getconection);
-       insertProductService($getconection, $name, $price, $description, $idCategory, $idOwner);
+       insertProductService($getconection, $name, $price, $description, $idCategory, $idOwner, $stock);
        mysqli_commit($getconection);
        header("Location: controlExtraSelect.php?data1=getProduct&data2=".$idOwner);
         exit;
