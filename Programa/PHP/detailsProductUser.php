@@ -32,8 +32,8 @@ mysqli_commit($conection);
 </head>
 
 <body>
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+       <!-- Navigation-->
+       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
         <h8 class="navbar-brand"><a id="addProduct" class="nav-link active" aria-current="page"
                             href= <?php echo "profileUser.php?data=".$user->getIdUser()?>>Perfil</a></h8>
@@ -48,7 +48,7 @@ mysqli_commit($conection);
                             <li class="nav-item"><a id="addProduct" class="nav-link active" aria-current="page"
                             href= <?php echo "postAprovedUser.php?data=".$user->getIdUser();?>>Publicaciones Aprovadas</a></li>
                             <li class="nav-item"><a id="addProduct" class="nav-link active" aria-current="page"
-                            href= <?php echo "postPendingUser.php?data=".$user->getIdUser();?>>Compras</a></li>
+                            href= <?php echo "purchaesUser.php?data=".$user->getIdUser();?>>Compras</a></li>
                             <li class="nav-item"><a id="addProduct" class="nav-link active" aria-current="page"
                             href= "../index.php">Salir</a></li>
                 </ul>

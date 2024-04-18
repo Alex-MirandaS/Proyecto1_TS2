@@ -5,7 +5,7 @@ include_once("../DB/insert.php");
 
 //GET CONECTION
 $getmysql = new mysqlconection();
-$getconection = $getmysql->conection();
+$getconection = $getmysql->conection(); 
 
 $name = filter_input(INPUT_POST, "titleProduct", FILTER_SANITIZE_STRING);
 $price = filter_input(INPUT_POST, "priceProduct", FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
@@ -19,7 +19,7 @@ $idCategory = $_GET['data2'];
 //VALIDACION DE DATOS
 
 if ($name == '' || $price == '' || $description == '' || $idCategory == '' || $idOwner == '') {
-    echo "<script> alert('Algun valor no tiene contenido'); location.href='../PHP/register.php';</script>";
+    echo "<script> alert('Algun valor no tiene contenido'); location.href='../PHP/addProduct.php?data=".$idOwner."';</script>";
 } else {
     
     try{

@@ -19,7 +19,7 @@ mysqli_commit($conection);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>G-SWAP</title>
+    <title>Compras</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap icons-->
@@ -45,7 +45,7 @@ mysqli_commit($conection);
                             <li class="nav-item"><a id="addProduct" class="nav-link active" aria-current="page"
                             href= <?php echo "postAprovedUser.php?data=".$user->getIdUser();?>>Publicaciones Aprovadas</a></li>
                             <li class="nav-item"><a id="addProduct" class="nav-link active" aria-current="page"
-                            href= <?php echo "postPendingUser.php?data=".$user->getIdUser();?>>Compras</a></li>
+                            href= <?php echo "purchaesUser.php?data=".$user->getIdUser();?>>Compras</a></li>
                             <li class="nav-item"><a id="addProduct" class="nav-link active" aria-current="page"
                             href= "../index.php">Salir</a></li>
                 </ul>
@@ -56,8 +56,7 @@ mysqli_commit($conection);
     <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">¡Bienvenido
-                    <?php echo $user->getFirstName() . " " . $user->getLastName() . "!" ?>
+            <h1 class="display-4 fw-bolder">Compras Realizadas
                 </h1>
             </div>
         </div>

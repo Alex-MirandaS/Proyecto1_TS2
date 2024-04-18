@@ -12,7 +12,7 @@ $password = $_GET['data2'];
 //VALIDACION DE DATOS
 
 if ($username == '' ||$password == '') {
-    echo "<script> alert('Hey! Hay datos faltantes, por favor, llena todos los campos'); location.href='../PHP/register.php';</script>";
+    echo "<script> alert('Hey! Hay datos faltantes, por favor, llena todos los campos'); location.href='../PHP/login.php';</script>";
 } else {
     try{
         mysqli_begin_transaction($getconection);

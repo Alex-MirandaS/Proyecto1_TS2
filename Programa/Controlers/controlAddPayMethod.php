@@ -16,11 +16,11 @@ $idOwner = $_GET['data'];
 
 
 if ($cardNumber == '' || $dateExpired == '' || $cvv == '' || $total == '' || $idOwner == '') {
-    echo "<script> alert('Hey! Hay datos faltantes, por favor, llena todos los campos'); location.href='../PHP/register.php';</script>";
+    echo "<script> alert('Hey! Hay datos faltantes, por favor, llena todos los campos'); location.href='../PHP/payMethodUser.php?data".$idOwner."';</script>";
 } else if(strlen($cardNumber)!=16){
-    echo "<script> alert('Hey! Los números de la tarjeta no son validos, por favor, debes agregar 16 digitos'); location.href='../PHP/register.php';</script>";
+    echo "<script> alert('Hey! Los números de la tarjeta no son validos, por favor, debes agregar 16 digitos'); location.href='../PHP/payMethodUser.php?data".$idOwner."';</script>";
 } else if(strlen($cvv)< 3 ||strlen($cvv)> 4 ){
-    echo "<script> alert('Hey! El valor CVV no es válido, por favor, debes agregar el correcto); location.href='../PHP/register.php';</script>";
+    echo "<script> alert('Hey! El valor CVV no es válido, por favor, debes agregar el correcto); location.href='../PHP/payMethodUser.php?data".$idOwner."';</script>";
 }else {
     
     try{
